@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: 260 80% 60%;
+  --primary-foreground: 210 40% 98%;
+  
+  --background: 260 60% 5%;
+  --foreground: 210 40% 98%;
+
+  --card: 260 50% 10%;
+  --card-foreground: 210 40% 98%;
+
+  --muted: 260 30% 20%;
+  --muted-foreground: 215 20.2% 65.1%;
+
+  --accent: 260 80% 60%;
+  --accent-foreground: 210 40% 98%;
+
+  --border: 260 30% 20%;
+  --radius: 1rem;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  @apply bg-[#0b041a] text-white selection:bg-purple-500/30;
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(260, 60%, 15%, 1) 0, transparent 50%), 
+    radial-gradient(at 100% 100%, hsla(280, 50%, 10%, 1) 0, transparent 50%);
+  min-height: 100vh;
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl;
+  }
+
+  .btn-premium {
+    @apply relative px-8 py-3 rounded-xl font-semibold transition-all duration-300
+           bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500
+           hover:scale-105 active:scale-95 shadow-lg shadow-purple-500/20;
+  }
+
+  .input-premium {
+    @apply w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 
+           focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 
+           transition-all duration-200 placeholder:text-gray-500;
+  }
+}
+
+/* Custom Micro-animations */
+.hover-lift {
+  @apply transition-transform duration-300 hover:-translate-y-1;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
+}
