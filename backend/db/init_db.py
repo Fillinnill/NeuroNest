@@ -107,9 +107,9 @@ def init_db():
     import db.models # to ensure models are attached to Base
     Base.metadata.create_all(bind=engine)
     
-    print("Creating advanced SQL features...")
-    create_advanced_sql_features()
-    print("Database initialization complete.")
+    # print("Creating advanced SQL features...")
+    # create_advanced_sql_features()
+    # print("Database initialization complete.")
 
 if __name__ == "__main__":
     init_db()
