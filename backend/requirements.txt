@@ -12,7 +12,10 @@ pydantic
 pydantic-settings
 openai
 google-generativeai
+google-genai
 faiss-cpu
 numpy
 psycopg2-binary
 argon2-cffi
+librosa
+soundfile

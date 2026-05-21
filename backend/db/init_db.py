@@ -9,12 +9,13 @@ def create_database():
         return
     try:
         import pymysql
+        port_str = settings.MYSQL_PORT or "3306"
         # Connect without specifying database to create it
         conn = pymysql.connect(
             host=settings.MYSQL_SERVER,
             user=settings.MYSQL_USER,
             password=settings.MYSQL_PASSWORD,
-            port=int(settings.MYSQL_PORT)
+            port=int(port_str)
         )
         cursor = conn.cursor()
         cursor.execute(f"CREATE DATABASE IF NOT EXISTS {settings.MYSQL_DB}")

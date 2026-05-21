@@ -35,7 +35,8 @@ class Settings(BaseSettings):
                 db_url = db_url.replace("postgres://", "postgresql://", 1)
             return db_url
             
+        port = self.MYSQL_PORT or "3306"
         encoded_password = urllib.parse.quote_plus(self.MYSQL_PASSWORD)
-        return f"mysql+pymysql://{self.MYSQL_USER}:{encoded_password}@{self.MYSQL_SERVER}:{self.MYSQL_PORT}/{self.MYSQL_DB}"
+        return f"mysql+pymysql://{self.MYSQL_USER}:{encoded_password}@{self.MYSQL_SERVER}:{port}/{self.MYSQL_DB}"
 
 settings = Settings()
