@@ -1,5 +1,6 @@
 import os
 import urllib.parse
+from typing import Optional
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
@@ -18,6 +19,7 @@ class Settings(BaseSettings):
     MYSQL_SERVER: str = "localhost"
     MYSQL_PORT: str = "3306"
     MYSQL_DB: str = "neuronest"
+    DATABASE_URL: Optional[str] = None
     
     # LLM API
     GEMINI_API_KEY: str = "your_gemini_api_key_here"
@@ -26,6 +28,13 @@ class Settings(BaseSettings):
     
     @property
     def SQLALCHEMY_DATABASE_URI(self) -> str:
+        if self.DATABASE_URL:
+            # Replace postgres:// with postgresql:// if needed for SQLAlchemy 1.4+
+            db_url = self.DATABASE_URL
+            if db_url.startswith("postgres://"):
+                db_url = db_url.replace("postgres://", "postgresql://", 1)
+            return db_url
+            
         encoded_password = urllib.parse.quote_plus(self.MYSQL_PASSWORD)
         return f"mysql+pymysql://{self.MYSQL_USER}:{encoded_password}@{self.MYSQL_SERVER}:{self.MYSQL_PORT}/{self.MYSQL_DB}"
 

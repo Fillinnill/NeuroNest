@@ -1,11 +1,14 @@
-import pymysql
 from core.config import settings
 from db.base_class import Base
 from db.session import engine
 from sqlalchemy import text
 
 def create_database():
+    if settings.DATABASE_URL:
+        print("Using DATABASE_URL; skipping database creation via pymysql.")
+        return
     try:
+        import pymysql
         # Connect without specifying database to create it
         conn = pymysql.connect(
             host=settings.MYSQL_SERVER,
