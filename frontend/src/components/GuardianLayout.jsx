@@ -29,7 +29,17 @@ const GuardianLayout = () => {
   useEffect(() => {
     if (!user?.id) return;
     const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-    const ws = new WebSocket(`${protocol}://${window.location.host}/ws/notify/${user.id}`);
+    let wsUrl = `${protocol}://${window.location.host}/ws/notify/${user.id}`;
+    if (import.meta.env.VITE_API_URL) {
+      try {
+        const url = new URL(import.meta.env.VITE_API_URL);
+        const wsProtocol = url.protocol === 'https:' ? 'wss' : 'ws';
+        wsUrl = `${wsProtocol}://${url.host}/ws/notify/${user.id}`;
+      } catch (err) {
+        console.error("Failed to parse VITE_API_URL for WebSocket:", err);
+      }
+    }
+    const ws = new WebSocket(wsUrl);
     wsRef.current = ws;
 
     ws.onmessage = (evt) => {
